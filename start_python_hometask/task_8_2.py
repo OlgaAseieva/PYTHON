@@ -4,9 +4,7 @@ s_l = s.split('.')
 s_z = s_l[0].rjust(6,'0')
 s_z = list(s_z)
 s_kop = s_l[1] if len(s_l) > 1 else ' 00'
-#         s_kop = s_l[1]
-# else:
-#         s' 00'
+
 # print(s_l, s_z, s_kop)
 
 digits_let = {
@@ -78,12 +76,17 @@ for i in range (2, len(s_z), 3):
                         alfa_number[i] = digits_let.get(int(s_z[i]))
         else:
                 alfa_number[i] = ' '
-print(alfa_number)
+#print(alfa_number)
 
-if  alfa_number[0] !=" " and alfa_number[1] !=" " and alfa_number[2] != " ":
+if  alfa_number[0] != " " or alfa_number[1] != " " or alfa_number[2] != " ":
         alfa_number.insert (3, digits_let.get(1000))
 
+print(alfa_number)
+
 k = ' '.join(alfa_number)
+
+if alfa_number == [' ']*6:
+        k += digits_let.get(0)
 
 print(f' {k} hriven {s_kop} kop.')
 
