@@ -91,3 +91,32 @@ if alfa_number == [' ']*6:
 print(f' {k} hriven {s_kop} kop.')
 
 
+ # 8.5 введенное число  до 100 римскими цифрами записать арабскими
+s = input('enter number: ')
+
+arab = []
+dict_rome = {
+         'I':1,
+         'V':5,
+         'X':10,
+         'L':50
+}
+for item in s:
+         arab.append(dict_rome.get(item))
+print(arab, arab[-1])
+sum = 0
+if len(s) >1:
+        for i in range(1, len(arab)):
+                if arab[i] > arab[i-1]:
+                        sum += arab[i]-arab[i-1]
+                        arab[i] = 0
+                        print(sum, i)
+                else:
+                        sum += arab[i-1]
+                        print(sum, i)
+        if arab[-1] <= arab[-2]:
+                sum += arab[-1]
+else:
+    sum += arab[0]
+print(sum)
+
