@@ -1,15 +1,13 @@
-# 8.4 написать числа буквами (в деньгах)
+# 8.4 написать числа  до 1 000 000 буквами (в деньгах)
 s = input('enter number')
-s_l = list(s)
-print(s_l)
-if '.' in s:
-    t = s.find('.')
-    s_kop = s_l[t+1:t+3]
-    s_z = int(''.join(s_l[:t]))
-
-else:
-        s_kop ='00 коп.'
-        s_z = int(''.join(s_l))
+s_l = s.split('.')
+s_z = s_l[0].rjust(6,'0')
+s_z = list(s_z)
+s_kop = s_l[1] if len(s_l) > 1 else ' 00'
+#         s_kop = s_l[1]
+# else:
+#         s' 00'
+# print(s_l, s_z, s_kop)
 
 digits_let = {
     #'unit':{
@@ -53,24 +51,40 @@ digits_let = {
   #   }
 }
 
-alfa_numbee = [0]*6
+alfa_number = [0]*6
 
-for i in range(0, len(s_l), 3):
-        if not s_l[i]:
-                alfa_numbee[i] = digits_let.get(s_l[i]) + digits_let.get(s_l[100])
-                print(alfa_numbee)
+for i in range (0, len(s_z), 3):
+        if  int(s_z[i]):
+                alfa_number[i] = digits_let.get(int(s_z[i])) + " " + digits_let.get(100)
         else:
-                alfa_numbee[i] = '*'
-# for i in range(1, len(s_l), step=3):
-#         if  0 < int(''.join(s_l[i:i+2]) < 20:
-#                 alfa_numbee[i] = digits_let.get(s_l[i])
-#                 alfa_numbee[i+1] = '*'
-#                 print(alfa_numbee)
-#         elif not s_l[i]:
-        #a = digits_let.get(s_l[-4])
-        #b = digits_let.get(s_l[-5])
-        #print(a,b)
+                alfa_number[i] = ' '
+# print(alfa_number)
+# k=int(s_z[1]+s_z[2])
+# print(k, type(k))
+
+for i in range (1, len(s_z), 3):
+         if  9 < int(s_z[i] +s_z[i+1]) < 20:
+                 alfa_number[i] = digits_let.get(int(s_z[i] +s_z[i+1]))
+                 alfa_number[i+1] = ' '
+         elif  int(s_z[i]):
+                 alfa_number[i] = digits_let.get(int(s_z[i])*10)
+         else:
+                alfa_number[i] = ' '
+# print(alfa_number)
+
+for i in range (2, len(s_z), 3):
+        if int(s_z[i]):
+                if alfa_number[i] != ' ':
+                        alfa_number[i] = digits_let.get(int(s_z[i]))
+        else:
+                alfa_number[i] = ' '
+print(alfa_number)
+
+if  alfa_number[0] !=" " and alfa_number[1] !=" " and alfa_number[2] != " ":
+        alfa_number.insert (3, digits_let.get(1000))
+
+k = ' '.join(alfa_number)
+
+print(f' {k} hriven {s_kop} kop.')
 
 
-#print(f'{''.join(s_kop)} коп.' if s_kop else '00 коп.')
-#print(digits_let.keys())
