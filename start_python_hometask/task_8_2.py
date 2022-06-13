@@ -3,9 +3,9 @@ s = input('enter number')
 s_l = s.split('.')
 s_z = s_l[0].rjust(6,'0')
 s_z = list(s_z)
-s_kop = s_l[1] if len(s_l) > 1 else ' 00'
+s_kop = s_l[1].ljust(2, '0') if len(s_l) > 1 else ' 00'
 
-# print(s_l, s_z, s_kop)
+print(s_l, s_z, s_kop)
 
 digits_let = {
     #'unit':{
@@ -52,6 +52,7 @@ digits_let = {
 alfa_number = [0]*6
 
 for i in range (0, len(s_z), 3):
+        print(s_z[i])
         if  int(s_z[i]):
                 alfa_number[i] = digits_let.get(int(s_z[i])) + " " + digits_let.get(100)
         else:
@@ -103,17 +104,17 @@ dict_rome = {
 }
 for item in s:
          arab.append(dict_rome.get(item))
-print(arab, arab[-1])
+#print(arab, arab[-1])
 sum = 0
 if len(s) >1:
         for i in range(1, len(arab)):
                 if arab[i] > arab[i-1]:
                         sum += arab[i]-arab[i-1]
                         arab[i] = 0
-                        print(sum, i)
+                        #print(sum, i)
                 else:
                         sum += arab[i-1]
-                        print(sum, i)
+                        #print(sum, i)
         if arab[-1] <= arab[-2]:
                 sum += arab[-1]
 else:
