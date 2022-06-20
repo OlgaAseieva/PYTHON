@@ -20,26 +20,20 @@ class Oder:
         else:
             k = self.purchase.index (dish)
             self.quantity[k] += 1
-        print('oder:', '\n', ''.join(map(str, self.purchase)), ' --', ''.join(map(str, self.quantity)),'\n')
-        res_list = ''
-        for i in range len (self.quantity):
-            res_list += ''.join(map(str, self.purchase[i]))+ ' --'+ ''.join(map(str, self.quantity[i])) + '\n'
+        #print('oder:', '\n', ''.join(map(str, self.purchase)), ' --', ''.join(map(str, self.quantity)),'\n')
 
-        return res_list
+        return (self.purchase, self.quantity)
 
     def info_client (self):
-
         return f'{self.customer}'
 
     def total_amount (self):
-        total = sum([getattr(i, 'price') * self.quantity[i] for i in self.purchase])
-        print(total)
-        return total
+        return sum([self.quantity[i] * item.price for i, item in enumerate(self.purchase)])
 
     def __str__(self):
         final = f'oder: {datetime.date.today()} \n '
         final += ''.join(map(str, self.customer)) + '\n'
-        final += res_list+'\n'
-        final += f'Total amount: {str(total)} UAH'
+        final += f' {(str(self.purchase[i]) + str(self.quantity[i]))  for i, v in enumerate(self.purchase)} '
+        final += f'Total amount: {self.total_amount()} UAH'
         return final
 
