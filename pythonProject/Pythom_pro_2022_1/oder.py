@@ -8,32 +8,34 @@ class Oder:
     """
     Class for added the cart for buyer and calculate the total amount
     """
-    def __init__(self, client, *arg, **kwargs):
-        self.customer = client
+    def __init__(self, buyer : Buyer, *arg, **kwargs):
+        self.customer = buyer
         self.purchase = []
         self.quantity = []
 
-    def add_cart (self, dish, q, *arg, **kwargs):
+    def add_cart (self, dish : Product, q : int, *arg, **kwargs):
         if dish not in self.purchase:
             self.purchase.append(dish)
             self.quantity.append(q)
         else:
             k = self.purchase.index (dish)
-            self.quantity[k] += 1
-        #print('oder:', '\n', ''.join(map(str, self.purchase)), ' --', ''.join(map(str, self.quantity)),'\n')
-
-        return (self.purchase, self.quantity)
+            self.quantity[k] += q
+      #  print('oder:', '\n', ''.join(map(str, self.purchase)), ' --', ''.join(map(str, self.quantity)),'\n')
 
     def info_client (self):
         return f'{self.customer}'
 
     def total_amount (self):
-        return sum([self.quantity[i] * item.price for i, item in enumerate(self.purchase)])
+        total = sum([self.quantity[i] * item.price for i, item in enumerate(self.purchase)])
+        return total
 
     def __str__(self):
         final = f'oder: {datetime.date.today()} \n '
-        final += ''.join(map(str, self.customer)) + '\n'
-        final += f' {(str(self.purchase[i]) + str(self.quantity[i]))  for i, v in enumerate(self.purchase)} '
-        final += f'Total amount: {self.total_amount()} UAH'
+        final += f' {self.customer} \n'
+
+        for i, item in enumerate(self.purchase):
+            tmp = f'\t {item} x {self.quantity[i]} = {self.quantity [i] * item.price} \n '
+            final += tmp
+        final += f' \n Total amount: {self.total_amount()} UAH'
         return final
 
