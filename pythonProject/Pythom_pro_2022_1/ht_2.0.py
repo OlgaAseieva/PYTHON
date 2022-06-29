@@ -1,4 +1,13 @@
 import datetime
+class Group_full_error(Exception):
+    def __init__(self, limit, desc):
+        self.limit = limit
+        self.desc = desc
+
+    def __str__ (self):
+        return f'Group full, added {limit} students.'
+
+
 
 class Person:
     def __init__(self, age: int, sex : str):
@@ -20,7 +29,7 @@ class Student(Person):
         return f'{self.surname} {self.name}, {self.age} y.o., {self.sex}'
 
 class Group:
-    limit = 10
+    LIMIT = 10
 
     def __init__(self, id_group: str,  *args, **kwargs):
         self.group =[]
@@ -28,9 +37,10 @@ class Group:
         self.id_group = id_group
 
     def add_group(self, stud: Student):
-        if stud not in self.group and len(self.group) < Group.limit:
+        if stud not in self.group and len(self.group) < Group.LIMIT:
             self.group.append(stud)
         else:
+            raise Group_full_error(Group.LIMIT, 'This student will be add to the reserve!')
             self.reserve.append(stud)
 
     def remove_stud (self, stud: Student):

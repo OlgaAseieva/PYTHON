@@ -14,6 +14,8 @@ class Oder:
         self.quantity = []
 
     def add_cart (self, dish : Product, q : int, *arg, **kwargs):
+        if  not  isinstance(dish.price, (int, float)) or not  isinstance(q, int ):
+            raise TypeError ('Args must be right types!')
         if dish not in self.purchase:
             self.purchase.append(dish)
             self.quantity.append(q)
