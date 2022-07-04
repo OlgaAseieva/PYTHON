@@ -53,6 +53,11 @@
 import math
 
 class Proper_fraction:
+    '''
+     Создайте класс «Правильная дробь» и реализуйте методы сравнения,
+сложения, вычитания и произведения для экземпляров этого класса.
+    '''
+
     def __init__(self, x : int, y : int):
         if not isinstance(x, int) or not isinstance(y, int) or y:
             return None
@@ -94,11 +99,5 @@ print(frac1 + frac2)
     #     else:
     #         return f' {self.a * self.d}/{self.b * self.c}
 
-    def __str__(self):
-        return f'{self.nod()}'
 
-frac1= Proper_fraction(1, 2)
-frac2 = Proper_fraction(2, 4)
-
-print(frac1 + frac2)
 
