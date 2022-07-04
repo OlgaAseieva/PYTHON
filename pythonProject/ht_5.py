@@ -59,45 +59,72 @@ class Proper_fraction:
     '''
 
     def __init__(self, x : int, y : int):
-        if not isinstance(x, int) or not isinstance(y, int) or y:
-            return None
+        if not isinstance(x, int) or not isinstance(y, int) or not y:
+            raise ValueError
         else:
             self.x = x
             self.y = y
 
-
     def nod(self):
-        if y:
-            return f' y must be !=0'
+        if not self.y:
+            raise ValueError('div by 0 is not allowed')
+            #return f' y must be !=0'
         else:
             return math.gcd(self.x, self.y)
 
     def __add__(self, other):
-        if self.y or other.y:
-            return f' y must be !=0'
+        if not self.y or not other.y:
+            raise ValueError('div by 0 is not allowed')
         else:
             a = self.x * other.y + other.x * self.y
             b = self.y * other.y
             #return f' {self.x * other.y + other.x * self.y}/{self.y * other.y}
             return f'{a}/{b}'
-    def __str__(self):
-        return f'{self.nod()}'
 
-frac1= Proper_fraction(1, 2)
-frac2 = Proper_fraction(2, 4)
+    def __sub__(self, other):
+        if not self.y or not other.y:
+            raise ValueError('div by 0 is not allowed')
+        else:
+            a = self.x * other.y - other.x * self.y
+            b = self.y * other.y
+            #return f' {self.x * other.y + other.x * self.y}/{self.y * other.y}
+            return f'{a}/{b}'
+    def __mul__(self, other):
+        if not self.y or not other.y:
+            raise ValueError('div by 0 is not allowed')
+        else:
+            a = self.x * other.x
+            b = self.y * other.y
+
+            return f'{a}/{b}'
+    def __truediv__(self, other):
+        if not self.y or not other.y:
+            raise ValueError('div by 0 is not allowed')
+        else:
+            a = self.x * other.y
+            b = self.y * other.x
+
+            return f'{a}/{b}'
+
+    def __str__(self):
+        if self.nod:
+            if self.x > self.y:
+                k = self.x // self.y
+                return f'{k} {(self.x-k*self.y) /self.nod()}/{self.y /self.nod()}'
+            else:
+                return f'{(self.x-k*self.y) /self.nod()}/{self.y /self.nod()}'
+        else:
+            return f' {self.x}/{self.y}'
+
+
+frac1 = Proper_fraction(1, 2)
+frac2 = Proper_fraction(4, 3)
 
 print(frac1 + frac2)
-    # def __mul__(self, other):
-    #     if self.b or self.d or self.c:
-    #         return ValueError
-    #     else:
-    #         return f' {self.a * self.c}/{self.b * self.d}
-    #
-    # def __truediv__(self, other):
-    #     if self.b or self.d or self.c:
-    #         return ValueError
-    #     else:
-    #         return f' {self.a * self.d}/{self.b * self.c}
+print(frac1 - frac2)
+print(frac1 * frac2)
+print(frac1 / frac2)
+
 
 
 
