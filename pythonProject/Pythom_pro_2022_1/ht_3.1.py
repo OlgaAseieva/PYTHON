@@ -1,6 +1,7 @@
 try:
     f_text = open('text_for_ht_3.txt', 'rt')
     f_text = f_text.read()
+    print(f_text)
 except FileExistsError:
     print ('No file')
 
@@ -18,7 +19,7 @@ class Count_text:
         else:
             sum_leters=0
             for item  in self.f_text:
-                if item not in string.punctuation:
+                if item not in (string.punctuation+'1234567890'):
                     sum_leters +=1
             return sum_leters
 
