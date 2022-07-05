@@ -65,10 +65,9 @@ class Proper_fraction:
             self.x = x
             self.y = y
 
-    def nod(self):
+    def nod(self, *args, **kwargs):
         if not self.y:
             raise ValueError('div by 0 is not allowed')
-            #return f' y must be !=0'
         else:
             return math.gcd(self.x, self.y)
 
@@ -78,8 +77,8 @@ class Proper_fraction:
         else:
             a = self.x * other.y + other.x * self.y
             b = self.y * other.y
-            #return f' {self.x * other.y + other.x * self.y}/{self.y * other.y}
-            return f'{a}/{b}'
+
+            return Proper_fraction(a, b)
 
     def __sub__(self, other):
         if not self.y or not other.y:
@@ -87,16 +86,19 @@ class Proper_fraction:
         else:
             a = self.x * other.y - other.x * self.y
             b = self.y * other.y
-            #return f' {self.x * other.y + other.x * self.y}/{self.y * other.y}
-            return f'{a}/{b}'
+
+            return Proper_fraction(a, b)
+
     def __mul__(self, other):
         if not self.y or not other.y:
             raise ValueError('div by 0 is not allowed')
         else:
+
             a = self.x * other.x
             b = self.y * other.y
 
-            return f'{a}/{b}'
+            return Proper_fraction(a, b)
+
     def __truediv__(self, other):
         if not self.y or not other.y:
             raise ValueError('div by 0 is not allowed')
@@ -104,15 +106,33 @@ class Proper_fraction:
             a = self.x * other.y
             b = self.y * other.x
 
-            return f'{a}/{b}'
+            return Proper_fraction(a, b)
+
+    def __gt__(self, other):
+         if not self.y or not other.y:
+            raise ValueError('div by 0 is not allowed')
+         else:
+            a = self.x * other.y
+            b = self.y * other.x
+
+            return a > b
+
+    def __lt__(self, other):
+         if not self.y or not other.y:
+            raise ValueError('div by 0 is not allowed')
+         else:
+            a = self.x * other.y
+            b = self.y * other.x
+
+            return a < b
 
     def __str__(self):
         if self.nod:
             if self.x > self.y:
                 k = self.x // self.y
-                return f'{k} {(self.x-k*self.y) /self.nod()}/{self.y /self.nod()}'
+                return f'{k} {int((self.x-k*self.y) /self.nod())}/{int(self.y /self.nod())}'
             else:
-                return f'{(self.x-k*self.y) /self.nod()}/{self.y /self.nod()}'
+                return f'{int(self.x /self.nod())}/{int(self.y /self.nod())}'
         else:
             return f' {self.x}/{self.y}'
 
@@ -124,6 +144,8 @@ print(frac1 + frac2)
 print(frac1 - frac2)
 print(frac1 * frac2)
 print(frac1 / frac2)
+print(frac2 > frac1)
+print(frac1 < frac2)
 
 
 
