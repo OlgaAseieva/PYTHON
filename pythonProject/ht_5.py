@@ -1,55 +1,62 @@
 
-# # HT_5_1
-# class Rectangle:
-#     """
-#     Создайте класс «Прямоугольник», у которого присутствуют два поля
-# (ширина и высота). Реализуйте метод сравнения прямоугольников по
-# площади. Также реализуйте методы сложения прямоугольников (площадь
-# суммарного прямоугольника должна быть равна сумме площадей
-# прямоугольников, которые вы складываете). Реализуйте методы
-# умножения прямоугольника на число n (это должно увеличить площадь
-# базового прямоугольника в n раз)
-#     """
-#
-#     def __init__(self, x, y):
-#         self.x = x
-#         self.y = y
-#
-#
-#     def sq(self):
-#         if isinstance(self.x, int | float) and isinstance(self.y, int | float):
-#             return  self.x * self.y
-#         else:
-#             NotImplemented
-#
-#     def __gt__(self, other):
-#         return  self.sq() > other.sq()
-#
-#     def __ge__(self, other):
-#         return  self.sq() >= other.sq()
-#
-#     def __lt__(self, other):
-#         return  self.sq() < other.sq()
-#
-#     def __le__(self, other):
-#         return  self.sq() <= other.sq()
-#
-#     def __eq__(self, other):
-#         return  self.sq() == other.sq()
-#
-#     def __add__(self, other):
-#         return  self.sq() + other.sq()
-#
-#     def __mul__(self, n):
-#         return  self.sq() * n
-#
-#     def __str__(self):
-#         return f'{x}, {y}'
-#
-# rect1 = Rectangle(10, 2)
-# rect2 = Rectangle(4, 4)
-#
-# print(rect1*2)
+# HT_5_1
+class Rectangle:
+    """
+    Создайте класс «Прямоугольник», у которого присутствуют два поля
+(ширина и высота). Реализуйте метод сравнения прямоугольников по
+площади. Также реализуйте методы сложения прямоугольников (площадь
+суммарного прямоугольника должна быть равна сумме площадей
+прямоугольников, которые вы складываете). Реализуйте методы
+умножения прямоугольника на число n (это должно увеличить площадь
+базового прямоугольника в n раз)
+    """
+
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+
+    def sq(self):
+        if isinstance(self.x, int | float) and isinstance(self.y, int | float):
+            return  self.x * self.y
+        else:
+            NotImplemented
+
+    def __gt__(self, other):
+        return  self.sq() > other.sq()
+
+    def __ge__(self, other):
+        return  self.sq() >= other.sq()
+
+    def __lt__(self, other):
+        return  self.sq() < other.sq()
+
+    def __le__(self, other):
+        return  self.sq() <= other.sq()
+
+    def __eq__(self, other):
+        return  self.sq() == other.sq()
+
+    def __add__(self, other):
+        return  Rectangle(1, self.sq() + other.sq())
+
+    def __mul__(self, n):
+        return  Rectangle(1, self.sq() * n)
+
+    def __str__(self):
+        return f'{self.x}, {self.y}'
+
+rect1 = Rectangle(10, 2)
+rect2 = Rectangle(4, 4)
+
+print(rect1*2)
+print(rect1 + rect2)
+print(rect1 < rect2)
+print(rect1 > rect2)
+print(rect1 == rect2, '\n')
+
+
+# HT _5.2
 import math
 
 class Proper_fraction:
@@ -79,6 +86,9 @@ class Proper_fraction:
             b = self.y * other.y
 
             return Proper_fraction(a, b)
+
+    def __radd__(self, other):
+        return self + other
 
     def __sub__(self, other):
         if not self.y or not other.y:
