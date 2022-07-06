@@ -18,6 +18,8 @@ if __name__ == '__main__':
     oder_1 = Oder(buyer_1)
     oder_1.add_cart(dish_1, 2)
     oder_1.add_cart(dish_2, 1)
+    oder_1.add_cart(dish_3, 2)
+    oder_1.add_cart(dish_4, 1)
 
     oder_2 = Oder(buyer_2)
     oder_2.add_cart(dish_1, 1)
@@ -25,3 +27,9 @@ if __name__ == '__main__':
 
     print('\n', oder_1)
     print('\n', oder_2)
+
+    for item in oder_1:
+        print(item)
+
+    for item in oder_2:
+        print(item)
