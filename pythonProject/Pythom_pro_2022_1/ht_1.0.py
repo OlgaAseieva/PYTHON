@@ -25,11 +25,17 @@ if __name__ == '__main__':
     oder_2.add_cart(dish_1, 1)
     oder_2.add_cart(dish_4, 1)
 
-    print('\n', oder_1)
-    print('\n', oder_2)
+    print('\n', oder_1, '\n')
+    print('\n', oder_2, '\n' )
 
     for item in oder_1:
         print(item)
-
+    print('\n')
     for item in oder_2:
+        print(item)
+
+    print('********slice********')
+    x = oder_1[2:]
+    print(x)
+    for item in x:
         print(item)

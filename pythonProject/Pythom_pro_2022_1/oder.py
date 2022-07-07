@@ -13,10 +13,35 @@ class OrderIter:
 
     def __next__(self):
         if self.index < len(self.wrapped):
-            self.index = +1
+            self.index += 1
             return self.wrapped [self.index -1]
                 #, self.q_wrapped[self.index -1]
         raise StopIteration
+
+    def __getitem__(self, item):
+        if isinstance(item, slice):
+            start = item.start or 0
+            stop = item.stop or len(self.wrapped)
+            step = item.step or 1
+
+            if start < 0 or stop > len(self.wrapped):
+                raise IndexError('Start or stop out of range')
+            #res = Oder()
+            res = []
+            for i in range (start, stop, step):
+                res.append(self.wrapped[i])
+            return res
+
+        elif isinstance(item, int):
+            if item < len(self.wrapped):
+                return self.wrapped[item]
+            return IndexError
+
+        else:
+            raise TypeError
+
+    def __len__(self):
+        return len(self.wrapped)
 
 class Oder:
 
