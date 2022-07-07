@@ -67,6 +67,9 @@ class Oder:
     def __iter__(self):
         return OrderIter (self.purchase)
 
+    def __getitem__(self, item):
+        return OrderIter(self.purchase)
+
     def info_client (self):
         return f'{self.customer}'
 

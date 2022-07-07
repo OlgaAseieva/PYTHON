@@ -36,6 +36,6 @@ if __name__ == '__main__':
 
     print('********slice********')
     x = oder_1[2:]
-    print(x)
+
     for item in x:
         print(item)
