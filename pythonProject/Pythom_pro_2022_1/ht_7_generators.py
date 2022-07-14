@@ -5,9 +5,9 @@ def list_exp(n):
     start =2
     lisr_exp = []
     exp = 3
-    lisr_exp += (i**exp for i in range(start, n))
+    lisr_exp = (i**exp for i in range(start, n))
     return lisr_exp
-print(list_exp(6))
+print(list(list_exp(6)))
 
 # 7.1
 
@@ -85,7 +85,7 @@ def analog_range(num, *args, **kwargs):
 for item in analog_range(10):
     print(item)
 print("*"*10)
-for item in analog_range ((2, 10, 2)):
+for item in analog_range((2, 10, 2)):
     print(item)
 
 # 7.3.
@@ -97,20 +97,17 @@ for item in analog_range ((2, 10, 2)):
 def prime_number(n):
     if not isinstance(n, int):
         raise TypeError
-    if n <=2:
-        return print([i for i in range(n)])
-
     for i in range (1, n):
         if i <3:
             yield i
         for j in range (2, i):
             if not i % j:
                 break
+        else:
             yield  i
             break
-
     return
 
-print(*prime_number(20))
+print(*prime_number(30))
 
 
