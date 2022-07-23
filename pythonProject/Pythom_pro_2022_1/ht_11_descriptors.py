@@ -1,84 +1,69 @@
-# 11.1
-"""
-Создайте дескриптор, который будет делать поля класса управляемые им
-доступными только для чтения.
-
-"""
-class MyDiscrip:
-    def __init__(self, val):
-        self.val = val
-
-    def __get__(self, instance, owner):
-        return "Hi" + self.val
-
-    def __set__(self, instance, value):
-        raise AttributeError("READ ONLY")
-
-    def __del__(self):
-        raise AttributeError("YOU CAN NOT DEL")
-
-class Stud:
-
-    def __init__(self, name, group):
-        self.group = group
-        self. name = MyDiscrip
-
-    def __str__(self):
-        return f'{self.name} - {self.group}'
-
-
-st1= Stud('Olha', 'PPro')
-st1.name = "as"
-print(st1)
-
-
-
-# #11.2
+# # 11.1
 # """
+# Создайте дескриптор, который будет делать поля класса управляемые им
+# доступными только для чтения.
 #
-# 2) Реализуйте функционал, который будет запрещать установку полей класса
-# любыми значениями, кроме целых чисел. Т.е., если тому или иному полю
-# попытаться присвоить, например, строку, то должно быть возбужденно
+# """
+# class AreaDiscrip:
+#
+#     def __get__(self, instance, owner):
+#         p = (instance.x + instance.y + instance.z)/2
+#         area = (p *(p-instance.x)*(p-instance.y)*(p-instance.z))**0.5
+#         return area
+#
+#     def __set__(self, instance, value):
+#         raise AttributeError
+#
+# class Triangle:
+#
+#     def __init__(self, a, b, c):
+#         self.x = a
+#         self.y = b
+#         self.z = c
+#
+#     area = AreaDiscrip()
+#
+#     def __str__(self):
+#         return f'{self.x} x {self.y} x {self.z}'
+#
+# x_1 = Triangle(10, 20, 30)
+#
+# print(x_1.area)
+# print(x_1)
+
+
+#11.2
+"""
+
+2) Реализуйте функционал, который будет запрещать установку полей класса
+любыми значениями, кроме целых чисел. Т.е., если тому или иному полю
+попытаться присвоить, например, строку, то должно быть возбужденно
 # исключение.
 #
 # """
+# import datetime
 #
-# class Group:
 #
-#     def __init__(self, name):
-#         self.name = name
+# class Triangle_1:
 #
-#     # def __getattribute__(self, item):
-#     #     try:
-#     #         return object.__getattribute__(self, item)
-#     #     except AttributeError('new field must be int'):
-#     #         if isinstance(item, int):
-#     #             print(item)
-#     def __getattribute__(self, item):
-#         if isinstance(item, int) or item == "name":
-#             return object.__getattribute__(self, item)
+#     def __init__(self, a, b, c):
+#         self.x = a
+#         self.y = b
+#         self.z = c
+#
+#     def __setattr__(self, key, value):
+#         if isinstance(value, int | float) and value > 0:
+#             self.__dict__[key] = value
 #         else:
-#             raise AttributeError('new field must be int')
-#
-#     def __getattr__(self, item):
-#         if isinstance(item, int):
-#             print(item)
-#             return __getattr__(self, item)
-#         else:
-#             raise AttributeError('new field must be int')
+#             raise TypeError("It must be int or float")
 #
 #     def __str__(self):
-#         return f"{self.name}"
+#         return f'{self.x} x {self.y} x {self.z}'
 #
+# x_3 = Triangle_1(1, -2, 3)
 #
-#
-# g = Group('ol')
-# print(g)
-# g.name =5
-# g.age = 10
-# g.1 = 4
-# print(g.__dict__)
-#
+# print(x_3)
+
 
 
 
@@ -90,3 +75,29 @@ print(st1)
 определенным названием должно сохранятся время (когда устанавливали 
 значение свойства) и установленное значение.
 """
+import datetime
+
+class Triangle_2:
+
+    def __init__(self, a, b, c):
+        self.x = a
+        self.__y = b
+        self.__z = c
+
+    @property
+    def x(self):
+        return self.__x
+
+    @x.setter
+    def x(self, value):
+        with open ('test.txt', 'w') as f:
+            res_str = f'{datetime.datetime.now()}, {value} \n'
+            f.write(res_str)
+            self.__x = value
+
+    def __str__(self):
+        return f'{self.__x} x {self.__y} x {self.__z}'
+
+x = Triangle_2(1, 5, 7)
+print(x)
+print(x.x)
