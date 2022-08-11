@@ -1,17 +1,17 @@
 import uuid
 import os
-
 from django.db import models
+from django.core.validators import RegexValidator
 
 class Category(models.Model):
 
     slug = models.SlugField(max_length=50, db_index=True)
-    itle = models.CharField(unique=True, max_length=50, db_index=True)
+    title = models.CharField(unique=True, max_length=50, db_index=True)
     position = models.SmallIntegerField(unique=True)
     is_visible = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'{self.itle}'
+        return f'{self.title}'
 
     class Meta:
         ordering = ('position', 'is_visible',)
@@ -78,12 +78,13 @@ class Galery (models.Model):
 
     photo = models.ImageField(upload_to=get_file_name)
     descript = models.CharField(max_length=300)
+    is_visible = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.descript}'
 
-class Spesial (models.Model):
-    dish = models.ForeignKey(Menu, on_delete=models.CASCADE)
+#class Spesial (models.Model):
+#    dish = models.ForeignKey(Menu, on_delete=models.CASCADE)
 
 class AboutUs(models.Model):
 
@@ -104,9 +105,28 @@ class AboutUs(models.Model):
 class WhytUs(models.Model):
     title = models.CharField(unique=True, max_length=50, db_index=True)
     descript = models.TextField(max_length=500)
-    is_visible = models.BooleanField(default=False)
+    # is_visible = models.BooleanField(default=False)
+
+    # class Meta:
+    #     ordering = ('is_visible', )
+
+class UserReservation(models.Model):
+
+    mobile_re = RegexValidator(regex=r'^(\d{3}[- .]?){2}\d{4}$', message='Phone in format xxx xxx xxxx')
+
+    name = models.CharField(max_length=50)
+    phone = models.CharField(max_length=15, validators=[mobile_re])
+    person = models.PositiveSmallIntegerField()
+    message = models.TextField(max_length=400, blank=True)
+    plan_date = models.DateField(blank=True)
+    date = models.DateField(auto_now_add=True)
+    in_processed = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ('is_visible', )
+        ordering = ('-date', '-in_processed')
+
+    def __str__(self):
+        return f'{self.name}, {self.phone}, {self.person} person \n {self.message[:100]}'
+
 
 
