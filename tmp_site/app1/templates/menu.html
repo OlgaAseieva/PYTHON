@@ -12,7 +12,7 @@
 
 {#            <li data-filter="*" class="filter-active">Show All</li>#}
 
-            {% for category in category %}
+            {% for category in categories %}
                 {% if forloop.first %}
                     <li data-filter=".filter-cat{{ category.pk }}" class="filter-active">{{ category.title }}</li>
                 {% else %}
